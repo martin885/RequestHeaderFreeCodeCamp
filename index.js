@@ -1,22 +1,16 @@
 'use strict'
 const express=require('express');
-// const moduleTime=require('./moduleRequest.js');
-var port = Number(process.env.PORT||8080);
+ const moduleHeader=require('./moduleHeader');
+ var port = Number(process.env.PORT||8080);
 
 const app =express();
-
 // app.use('/',express.static(__dirname+'/public'));
+app.get('/api/whoami/',function(req,res){
 
-app.get('/api/whoami/',function(req,res,next){
-var ipadress=req.connection.remoteAddress;
-var language=req.headers["accept-language"].split(',');
+    var ip= req.ip|| req.connection.remoteAddress || 
+    req.socket.remoteAddress || req.headers['x-forwarded-for'];
 
-// var software=req
-
-// var dateValue=req.params.dateValue;
-
-
- res.json({ipadress:ipadress,language:language[0]});
+  res.json(moduleHeader(ip,req.headers["accept-language"],req.headers["user-agent"]));
 });
 
 
