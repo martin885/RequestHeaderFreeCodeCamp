@@ -4,7 +4,7 @@ const express=require('express');
  var port = Number(process.env.PORT||8080);
 
 const app =express();
-// app.use('/',express.static(__dirname+'/public'));
+ app.use('/',express.static(__dirname+'/public'));
 app.get('/api/whoami/',function(req,res){
 
     var ip= req.ip|| req.connection.remoteAddress || 
