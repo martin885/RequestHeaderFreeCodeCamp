@@ -6,10 +6,10 @@ const express=require('express');
 const app =express();
  app.use('/',express.static(__dirname+'/public'));
 app.get('/api/whoami/',function(req,res){
-
-    var ip= req.ip|| req.connection.remoteAddress || 
-    req.socket.remoteAddress || req.headers['x-forwarded-for'];
-
+    
+    var ip= req.connection.remoteAddress|| req.ip || 
+    req.socket.remoteAddress ;
+console.log(req.socket.remoteAddress,req.ip,req.connection.remoteAddress,req.headers['x-forwarded-for']);
   res.json(moduleHeader(ip,req.headers["accept-language"],req.headers["user-agent"]));
 });
 
